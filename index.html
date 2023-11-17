@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Quản lý Academy</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- FontAwesome 6.2.0 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1 class="text-center my-5 text-bg-success py-4">
+        Quản lý học viện nghiên cứu & giảng dạy
+      </h1>
+    </header>
+    <main>
+      <div class="container">
+        <div class="row">
+          <!--! Thêm người dùng -->
+          <div class="col-4">
+            <button
+              type="button"
+              class="btn btn-warning mb-3"
+              id="addUser"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Thêm người dùng
+            </button>
+          </div>
+
+          <!--! tìm kiếm -->
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input
+                id="searchId"
+                type="text"
+                class="form-control"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+
+          <!--chọn đối tượng người dùng -->
+          <div class="col-2">
+            <select
+              class="form-select mb-3 align-content-end"
+              style="width: 125px"
+              id="renderOnlyUser"
+            >
+              <option value="all">All</option>
+              <option value="student">Student</option>
+              <option value="employee">Employee</option>
+              <option value="customer">Customer</option>
+            </select>
+          </div>
+        </div>
+
+        <!--! danh sách người dùng -->
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr
+              class="bg-success text-center text-white"
+              style="line-height: 50px"
+            >
+              <th>Mã</th>
+              <th>Họ và tên</th>
+              <th>Địa chỉ</th>
+              <th>Email</th>
+              <th>Người dùng</th>
+              <th>Thông tin riêng</th>
+              <th><i class="fa-solid fa-gear"></i></th>
+            </tr>
+          </thead>
+          <tbody id="renderListStudent"></tbody>
+          <tbody id="renderListEmployee"></tbody>
+          <tbody id="renderListCustomer"></tbody>
+        </table>
+
+        <!--! Modal Thêm nhân viên -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Thêm người dùng
+                </h1>
+              </div>
+              <!-- body -->
+              <div class="modal-body" id="modalBody">
+                <form id="userForm">
+                  <!-- mã số -->
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="ma"
+                      placeholder="Nhập mã số"
+                      onchange="checkInput('ma', 'errMa', true)"
+                    />
+                  </div>
+                  <p
+                    id="errMa"
+                    class="text-start mt-1 mb-2 ms-2"
+                    style="color: red; font-size: 13px; display: none"
+                  >
+                    Vui lòng nhập đúng định dạng mã.
+                  </p>
+
+                  <!--họ tên -->
+                  <div class="input-group mt-3">
+                    <input
+                      id="hoTen"
+                      type="text"
+                      class="form-control"
+                      placeholder="Nhập tên"
+                      onchange="checkInput('hoTen', 'errName', true)"
+                    />
+                  </div>
+                  <p
+                    id="errName"
+                    class="text-start mt-1 mb-2 ms-2"
+                    style="color: red; font-size: 13px; display: none"
+                  >
+                    Vui lòng nhập đúng định dạng họ tên.
+                  </p>
+
+                  <!-- email -->
+                  <div class="input-group mt-3">
+                    <input
+                      id="email"
+                      type="text"
+                      onchange="checkInput('email', 'errEmail', checkEmail('email'))"
+                      class="form-control"
+                      placeholder="Nhập email"
+                    />
+                  </div>
+                  <p
+                    id="errEmail"
+                    class="text-start mt-1 mb-2 ms-2"
+                    style="color: red; font-size: 13px; display: none"
+                  >
+                    Vui lòng nhập đúng định dạng email.
+                  </p>
+
+                  <!-- địa chỉ -->
+                  <div class="input-group mt-3">
+                    <input
+                      id="diaChi"
+                      type="text"
+                      class="form-control"
+                      placeholder="Nhập địa chỉ"
+                      onchange="checkInput('diaChi', 'errAddress', true)"
+                    />
+                  </div>
+                  <p
+                    id="errAddress"
+                    class="text-start mt-1 mb-2 ms-2"
+                    style="color: red; font-size: 13px; display: none"
+                  >
+                    Vui lòng nhập đúng định dạng địa chỉ.
+                  </p>
+                  <!-- Đối tượng người dùng -->
+                  <select class="form-select mt-3" id="type">
+                    <option value="">Chọn đối tượng người dùng</option>
+                    <option id="opSdt" value="student">Student</option>
+                    <option id="opEle" value="employee">Employee</option>
+                    <option id="opCor" value="customer">Customer</option>
+                  </select>
+                  <p
+                    id="errObj"
+                    class="text-start mt-1 mb-2 ms-2"
+                    style="color: red; font-size: 13px; display: none"
+                  >
+                    Vui lòng chọn một đối tượng người dùng.
+                  </p>
+
+                  <div class="modal-footer mt-3">
+                    <button
+                      type="button"
+                      id="idBtnClose"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Đóng
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnEdit">
+                      Cập nhật
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="btnAddUser"
+                    >
+                      Thêm
+                    </button>
+                  </div>
+                </form>
+
+                <!-- Danh sách hiển thị -->
+                <div id="renderPerson"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
+
+    <!-- Bootstrap JavaScript Libraries -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="./controllers/helper.js"></script>
+    <script src="./controllers/validation.js"></script>
+    <script type="module" src="./controllers/index.js"></script>
+    <script type="module" src="./models/ListPerson.js"></script>
+  </body>
+</html>
