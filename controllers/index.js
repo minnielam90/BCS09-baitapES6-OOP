@@ -165,3 +165,10 @@ document.getElementById("renderOnlyUser").onchange = () => {
     listPerson.renderUser(renderAllCustomer);
   }
 };
+
+// sắp xếp họ tên
+const sortSelect = document.getElementById("sortSelect");
+sortSelect.addEventListener("change", () => {
+  const selectedValue = sortSelect.value;
+  listPerson.sortUsersByName(selectedValue);
+});

@@ -51,7 +51,7 @@ function check(id) {
 
 function checkName(id) {
   let dataInput = document.getElementById(id).value;
-  let validName = /^[a-zA-Z\s]+$/; // Regular expression to allow only letters and spaces
+  let validName = /^[a-zA-Z\s]+$/;
 
   if (validName.test(dataInput)) {
     document.getElementById(id).classList.remove("is-invalid");

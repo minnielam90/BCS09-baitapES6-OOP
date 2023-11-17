@@ -54,11 +54,11 @@ export default class ListPerson {
                       </table>
                   </td>
                   <td style="vertical-align: middle; text-align: center">
-                    <button class="btn btn-danger" onclick="deleteUser('${ma}')">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
                     <button class="btn btn-warning" onclick="getInfoUser('${ma}')">
                       <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteUser('${ma}')">
+                      <i class="fa-solid fa-trash"></i>
                     </button>
                   </td>
                 </tr>`;
@@ -108,12 +108,13 @@ export default class ListPerson {
                       </table>
                   </td>
                   <td style="vertical-align: middle; text-align: center">
+                      <button class="btn btn-warning" onclick="getInfoUser('${ma}')">
+                      <i class="fa-solid fa-pen"></i>
+                      </button>
                       <button class="btn btn-danger" onclick="deleteUser('${ma}')">
                         <i class="fa-solid fa-trash"></i>
                       </button>
-                      <button class="btn btn-warning" onclick="getInfoUser('${ma}')">
-                        <i class="fa-solid fa-pen"></i>
-                      </button>
+                      
                   </td>
                 </tr>`;
       }
@@ -154,11 +155,11 @@ export default class ListPerson {
                       </table>
                     </td>
                     <td style="vertical-align: middle; text-align: center">
-                        <button class="btn btn-danger" onclick="deleteUser('${ma}')">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
                         <button class="btn btn-warning" onclick="getInfoUser('${ma}')">
                             <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteUser('${ma}')">
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
                   </tr>`;
@@ -267,5 +268,23 @@ export default class ListPerson {
         .includes(newNameUser.toLowerCase().trim());
     });
     this.renderUser(arrUser);
+  }
+
+  // sắp xếp theo họ tên
+  sortUsersByName(sortOrder) {
+    const sortedUsers = [...this.arrListPerson];
+
+    sortedUsers.sort((a, b) => {
+      const nameA = a.hoTen.toLowerCase();
+      const nameB = b.hoTen.toLowerCase();
+
+      if (sortOrder === "asc") {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+
+    this.renderUser(sortedUsers);
   }
 }

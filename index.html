@@ -49,13 +49,13 @@
           </div>
 
           <!--! tìm kiếm -->
-          <div class="col-6">
+          <div class="col-4">
             <div class="input-group mb-3">
               <input
                 id="searchId"
                 type="text"
                 class="form-control"
-                placeholder="Search"
+                placeholder="Tìm kiếm theo tên"
               />
             </div>
           </div>
@@ -63,7 +63,7 @@
           <!--chọn đối tượng người dùng -->
           <div class="col-2">
             <select
-              class="form-select mb-3 align-content-end"
+              class="form-select mb-3"
               style="width: 125px"
               id="renderOnlyUser"
             >
@@ -71,6 +71,19 @@
               <option value="student">Student</option>
               <option value="employee">Employee</option>
               <option value="customer">Customer</option>
+            </select>
+          </div>
+
+          <!-- sắp xếp theo họ tên -->
+          <div class="col-2">
+            <select
+              class="form-select mb-3"
+              style="width: 125px"
+              id="sortSelect"
+            >
+              <option value="">Sắp xếp</option>
+              <option value="asc">Tăng dần</option>
+              <option value="desc">Giảm dần</option>
             </select>
           </div>
         </div>
