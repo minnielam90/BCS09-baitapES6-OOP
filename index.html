@@ -125,8 +125,8 @@
                 </h1>
               </div>
               <!-- body -->
-              <div class="modal-body" id="modalBody">
-                <form id="userForm">
+              <form id="userForm">
+                <div class="modal-body" id="modalBody">
                   <!-- mã số -->
                   <div class="input-group">
                     <input
@@ -212,28 +212,32 @@
                   >
                     Vui lòng chọn một đối tượng người dùng.
                   </p>
-                </form>
 
-                <!-- Danh sách hiển thị -->
-                <div id="renderPerson"></div>
+                  <!-- Danh sách hiển thị -->
+                  <div id="renderPerson"></div>
 
-                <div class="modal-footer mt-3">
-                  <button
-                    type="button"
-                    id="idBtnClose"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Đóng
-                  </button>
-                  <button type="button" class="btn btn-primary" id="btnEdit">
-                    Cập nhật
-                  </button>
-                  <button type="button" class="btn btn-primary" id="btnAddUser">
-                    Thêm
-                  </button>
+                  <div class="modal-footer mt-3">
+                    <button
+                      type="button"
+                      id="idBtnClose"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Đóng
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnEdit">
+                      Cập nhật
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="btnAddUser"
+                    >
+                      Thêm
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -243,6 +247,11 @@
       <!-- place footer here -->
     </footer>
 
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <!-- Bootstrap JavaScript Libraries -->
 
     <script

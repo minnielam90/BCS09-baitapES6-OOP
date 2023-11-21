@@ -1,3 +1,4 @@
+// index.js
 import Student from "../models/Student.js";
 import Employee from "../models/Employee.js";
 import Customer from "../models/Customer.js";
@@ -20,8 +21,7 @@ document.getElementById("btnAddUser").addEventListener("click", () => {
   let arrSel = document.querySelector(".modal-body select").value;
 
   // validation
-  var valid = true;
-  valid =
+  var valid =
     checkInput("email", "errEmail", checkEmail("email")) &
     checkInput("ma", "errMa", true) &
     checkInput("hoTen", "errName", checkName("hoTen")) &
@@ -29,52 +29,64 @@ document.getElementById("btnAddUser").addEventListener("click", () => {
     checkInput("diaChi", "errAddress", true) &
     checkSelect(arrSel);
 
-  let person;
-  if (arrSel == "student") {
-    person = new Student();
-    for (const item of arrInput) {
-      valid = check("toan") & check("ly") & check("hoa");
-      if (!valid) {
-        return;
+  if (valid) {
+    let person;
+    if (arrSel == "student") {
+      person = new Student();
+      for (const item of arrInput) {
+        valid = check("toan") & check("ly") & check("hoa");
+        console.log("validation result:", valid);
+        if (!valid) {
+          break;
+        }
+        let { id, value } = item;
+        person[id] = value;
       }
-      let { id, value } = item;
-      person[id] = value;
+      if (valid) {
+        console.log("adding user:", person);
+        listPerson.addUser(person);
+      }
     }
-    listPerson.addUser(person);
-  }
-  if (arrSel == "employee") {
-    person = new Employee();
-    for (const item of arrInput) {
-      let { id, value } = item;
-      person[id] = value;
+    if (arrSel == "employee") {
+      person = new Employee();
+      for (const item of arrInput) {
+        let { id, value } = item;
+        person[id] = value;
+      }
+      listPerson.addUser(person);
     }
-    listPerson.addUser(person);
-  }
-  if (arrSel == "customer") {
-    person = new Customer();
-    for (const item of arrInput) {
-      let { id, value } = item;
-      person[id] = value;
+    if (arrSel == "customer") {
+      person = new Customer();
+      for (const item of arrInput) {
+        let { id, value } = item;
+        person[id] = value;
+      }
+      listPerson.addUser(person);
     }
-    listPerson.addUser(person);
-  }
 
-  listPerson.renderUser(listPerson.arrListPerson);
-  listPerson.setLocalStorage(listPerson.arrListPerson);
-  for (const item of arrInput) {
-    item.value = "";
-  }
+    if (valid) {
+      listPerson.renderUser(listPerson.arrListPerson);
+      listPerson.setLocalStorage(listPerson.arrListPerson);
+      for (const item of arrInput) {
+        item.value = "";
+      }
+    }
 
-  tatModalVaClearDuLieu();
+    if (!valid && arrSel == "student") {
+      $("#exampleModal").modal("show"); // Show the modal again
+    } else {
+      tatModalVaClearDuLieu(); // Close the modal if validation is successful
+    }
+  }
 });
 
 // --------------- tắt modal và clear dữ liệu trong form
 const tatModalVaClearDuLieu = () => {
   // Hide the modal
-  $("#modalBody").modal("hide");
+  $("#exampleModal").modal("hide");
 
   // After the modal is hidden, reset the form
-  $("#modalBody").on("hidden.bs.modal", function () {
+  $("#exampleModal").on("hidden.bs.modal", function () {
     document.getElementById("userForm").reset();
   });
 };
@@ -95,8 +107,7 @@ document.getElementById("btnEdit").onclick = () => {
   let arrSel = document.querySelector(".modal-body select").value;
 
   // validation
-  var valid = true;
-  valid =
+  var valid =
     checkInput("email", "errEmail", checkEmail("email")) &
     checkInput("ma", "errMa", true) &
     checkInput("hoTen", "errName", checkName("hoTen")) &
@@ -104,32 +115,52 @@ document.getElementById("btnEdit").onclick = () => {
     checkInput("diaChi", "errAddress", true) &
     checkSelect(arrSel);
 
-  if ((arrSel = "student")) {
-    let person = new Student();
-    for (const item of arrInput) {
-      let { id, value } = item;
-      person[id] = value;
+  if (valid) {
+    let person;
+    if (arrSel == "student") {
+      person = new Student();
+      for (const item of arrInput) {
+        valid = check("toan") & check("ly") & check("hoa");
+        if (!valid) {
+          break;
+        }
+        let { id, value } = item;
+        person[id] = value;
+      }
+      if (valid) {
+        listPerson.editInfoUser(person);
+      }
     }
-    console.log(person.ma);
-    listPerson.editInfoUser(person);
-  }
-  if ((arrSel = "employee")) {
-    let person = new Employee();
-    for (const item of arrInput) {
-      let { id, value } = item;
-      person[id] = value;
+    if (arrSel == "employee") {
+      person = new Employee();
+      for (const item of arrInput) {
+        let { id, value } = item;
+        person[id] = value;
+      }
+      listPerson.editInfoUser(person);
     }
-    listPerson.editInfoUser(person);
-  }
-  if ((arrSel = "customer")) {
-    let person = new Customer();
-    for (const item of arrInput) {
-      let { id, value } = item;
-      person[id] = value;
+    if (arrSel == "customer") {
+      person = new Customer();
+      for (const item of arrInput) {
+        let { id, value } = item;
+        person[id] = value;
+      }
+      listPerson.editInfoUser(person);
     }
-    listPerson.editInfoUser(person);
+
+    if (valid) {
+      listPerson.editInfoUser(listPerson.arrListPerson);
+      listPerson.setLocalStorage(listPerson.arrListPerson);
+      for (const item of arrInput) {
+        item.value = "";
+      }
+    }
+    if (!valid && arrSel == "student") {
+      $("#exampleModal").modal("show"); // Show the modal again
+    } else {
+      tatModalVaClearDuLieu(); // Close the modal if validation is successful
+    }
   }
-  tatModalVaClearDuLieu();
 };
 
 // tìm kiếm
@@ -171,4 +202,5 @@ const sortSelect = document.getElementById("sortSelect");
 sortSelect.addEventListener("change", () => {
   const selectedValue = sortSelect.value;
   listPerson.sortUsersByName(selectedValue);
+  console.log("Initial user list:", listPerson.arrListPerson);
 });

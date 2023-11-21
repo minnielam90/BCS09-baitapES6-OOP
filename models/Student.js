@@ -7,6 +7,6 @@ export default class Student extends Person {
     this.hoa = 0;
   }
   dTB = () => {
-    return (this.toan + this.ly + this.hoa) / 3;
+    return (this.toan * 1 + this.ly * 1 + this.hoa * 1) / 3;
   };
 }

@@ -39,12 +39,15 @@ function checkSelect(dataInput) {
 }
 
 function check(id) {
-  let dataInput = document.getElementById(id).value;
-  if (dataInput) {
+  let dataInput = document.getElementById(id).value.trim(); // Trim to remove leading/trailing spaces
+  console.log(`Checking ${id}. Value: ${dataInput}`);
+  if (dataInput !== "") {
     document.getElementById(id).classList.remove("is-invalid");
+    console.log(`${id} is valid.`);
     return true;
   } else {
     document.getElementById(id).classList.add("is-invalid");
+    console.log(`${id} is invalid.`);
     return false;
   }
 }

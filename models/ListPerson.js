@@ -275,8 +275,8 @@ export default class ListPerson {
     const sortedUsers = [...this.arrListPerson];
 
     sortedUsers.sort((a, b) => {
-      const nameA = a.hoTen.toLowerCase();
-      const nameB = b.hoTen.toLowerCase();
+      const nameA = this.getFirstCharacter(a.hoTen);
+      const nameB = this.getFirstCharacter(b.hoTen);
 
       if (sortOrder === "asc") {
         return nameA.localeCompare(nameB);
@@ -286,5 +286,9 @@ export default class ListPerson {
     });
 
     this.renderUser(sortedUsers);
+  }
+
+  getFirstCharacter(name) {
+    return name ? name.trim()[0].toLowerCase() : "";
   }
 }
